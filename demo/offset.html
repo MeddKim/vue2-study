@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取不同的位置</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			margin: 0;
+			padding: 0;
+		}
+		.d{
+			height: 400px;
+			width: 400px;
+			padding: 0;
+			margin: 0;
+			border: 5px solid red;
+			box-sizing: border-box;
+		}
+		.k{
+			height: 400px;
+			width: 2400px;
+			padding: 0;
+			margin: 0;
+			border: 5px solid green;
+			box-sizing: border-box;
+		}
+		.j{
+			position: fixed;
+			height: 50px;
+			width: 50px;
+			top: 200px;
+			left: 200px;
+			border: 5px solid yellow;
+			box-sizing: border-box;
+		}
+	</style>
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+</head>
+<body>
+	<div class="k"></div>
+	<div class="d"></div>
+	<div class="j" id="test"></div>
+	<div class="d" style="overflow: scroll;">
+		<div id="iner" style="margin-top: 200px;margin-left: 200px;border:10px solid black;height: 500px;width: 500px">
+			
+		</div>
+	</div>
+	<div></div>
+	<div class="d">
+		<div class="getLocation" style="top: 600px;left: 500px;position:fixed;cursor:pointer;background: blue">获取位置</div>
+		<div class="setLocation" style="top: 600px;left: 550px;position:fixed;cursor:pointer;background: yellow">设置位置</div>
+		<div class="getDivOffest" style="top: 600px;left: 600px;position:fixed;cursor:pointer;background: green">获取</div>
+		<div class="getDivLocation" style="top: 600px;left: 600px;position:fixed;cursor:pointer;background: green">获取div位置</div>
+	</div>
+</body>
+	<script>
+	    function getScroll(target, top) {
+	        const prop = top ? 'pageYOffset' : 'pageXOffset';
+	        const method = top ? 'scrollTop' : 'scrollLeft';
+
+	        let ret = target[prop];
+
+	        if (typeof ret !== 'number') {
+	            ret = window.document.documentElement[method];
+	        }
+
+	        return ret;
+	    }
+
+		$('.getLocation').click(function(){
+			console.log(getScroll(window,true));
+			console.log(getScroll(window,false));
+		});
+
+		$('.setLocation').click(function(){
+		    if(window.all){  
+		        //ie  
+		        document.documentElement.scrollTop = 399;  
+		        document.documentElement.scrollLeft = 399;  
+		    }else{  
+		        window.scrollTo(399, 399);  
+		    }  
+		});
+
+		$('.getDivOffest').click(function(){
+			var obj = document.getElementById("test");
+			var obj1 = document.getElementById("iner");
+			console.log(obj);
+			console.log(obj1);
+			console.log(getScroll(obj,true));
+			console.log(getScroll(obj,false));
+
+			console.log(getScroll(obj,true));
+			console.log(getScroll(obj1,false));
+		});
+		$('.getDivLocation').click(function(){
+			var obj = document.getElementById("test");
+			var obj1 = document.getElementById("iner");
+
+			console.log("body:");
+			console.log(window.document.body.clientTop) 
+			console.log(window.document.body.clientLeft) 
+
+			console.log("id为test的div");
+			console.log(obj.getBoundingClientRect().top); 
+			console.log(obj.getBoundingClientRect().left); 
+			console.log(obj.offsetTop); 
+			console.log(obj.offsetLeft); 
+
+			console.log("inner:");
+			//相对与浏览器窗口的位置，滚动条变化，div随之变化，则值变化
+			console.log("obj1.getBoundingClientRect().top:  "+obj1.getBoundingClientRect().top);  
+			console.log("obj1.getBoundingClientRect().left:  "+obj1.getBoundingClientRect().left); 
+			console.log("obj1.offsetTop: " +obj1.offsetTop);  //offsetTop元素相对页面最左上角的的位置，不因滚动条变化而变化
+			console.log("obj1.offsetTop: "+obj1.offsetLeft);  //
+
+			console.log(obj1.getBoundingClientRect().top+getScroll(window,true));
+		});
+	</script>
+</html>
