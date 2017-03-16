@@ -28,11 +28,10 @@ export default {
   /*margin-top: 60px;*/
 }
 .demo-affix{
-      display: inline-block;
+    display: inline-block;
     color: #fff;
     padding: 10px 30px;
     text-align: center;
     background: rgba(0,153,229,.9);
 }
-.ivu-affix { position:fixed;z-index:10 }
 </style>

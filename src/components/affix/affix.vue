@@ -157,3 +157,7 @@
 
 	}
 </script>
+
+<style>
+	.ivu-affix { position:fixed;z-index:10 }
+</style>
